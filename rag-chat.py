@@ -1,5 +1,4 @@
 #!python
-# Import required libraries
 from langchain_ollama import OllamaEmbeddings, OllamaLLM
 import chromadb, requests, os, ollama
 
@@ -125,11 +124,13 @@ def rag_pipeline(query_text):
 
     # Step 2: Send the query along with the context to Ollama
     augmented_prompt = f"Context: {context}\nQuestion: {query_text}\nAnswer: "
+    # Uncomment next line if you want to see the context
+    # print(augmented_prompt)
 
     response = query_ollama(augmented_prompt)
     return response
 
-# Define a query to test the RAG pipeline
+# User query loop
 while True:
     query = input("Ask a question (or type 'exit' to quit): ")
     if query.lower() == "exit":
