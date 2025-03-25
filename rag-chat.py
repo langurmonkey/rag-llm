@@ -13,7 +13,7 @@ for m in models.models:
 print("Available models:\n -", '\n - '.join(model_names))
 
 # Ask the user the LLM model to use
-llm_model = input("Model to use: ")
+llm_model = input("\nModel to use: ")
 
 # Configure ChromaDB
 # Initialize the ChromaDB client with persistent storage in the current directory
@@ -125,16 +125,15 @@ def rag_pipeline(query_text):
 
     # Step 2: Send the query along with the context to Ollama
     augmented_prompt = f"Context: {context}\nQuestion: {query_text}\nAnswer: "
-    print(augmented_prompt)
 
     response = query_ollama(augmented_prompt)
     return response
 
-# Example usage
 # Define a query to test the RAG pipeline
-query = input("Query: ")
-while query != "/bye":
+while True:
+    query = input("Ask a question (or type 'exit' to quit): ")
+    if query.lower() == "exit":
+        break
     response = rag_pipeline(query)
     print(response)
-    query = input("Query: ")
 
